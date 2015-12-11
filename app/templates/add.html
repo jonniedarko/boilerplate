@@ -1,0 +1,23 @@
+<h1>Add</h1>
+<form action="">
+  <label for="">workout</label>
+  <select ng-model="form.workout" id="workoutInput">
+    <option value="legs">Legs</option>
+    <option value="back">Backs</option>
+    <option value="arms">Arms</option>
+
+  </select>
+  <br/>
+  <label for="set">Set: </label>
+  <input ng-model="form.set" type="text" id="set">
+    <br/>
+  <label for="weight">Weight: </label>
+  <input ng-model="form.weight" type="text" id="weight">
+  <br/>
+  <label for="reps">Reps: </label>
+  <input ng-model="form.reps" type="text">
+  <br />
+   <input type="submit" ng-click="save()" value="Save" />
+</form>
+
+<a ui-sref="home">Go to Home</a>
