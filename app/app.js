@@ -1,3 +1,6 @@
+require('angular');
+require('angular-ui-router');
+
 angular.module('app', ['ui.router'])
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -8,7 +11,7 @@ angular.module('app', ['ui.router'])
   // HOME STATES AND NESTED VIEWS ========================================
     .state('home', {
     url: '/',
-    templateUrl: 'templates/home.html',
+    template: require('./templates/home'),
     controller:'homeCtrl'
   })
 

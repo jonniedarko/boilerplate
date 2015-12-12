@@ -11,7 +11,7 @@ var bodyParser = require('body-parser');
 
 var app = express();
 app.set('env', 'Dev');
-app.set('publicDir', path.join(__dirname, '..', 'app'));
+app.set('publicDir', path.join(__dirname, '..', 'public'));
 // Log requests to console
 app.use(morgan('dev'));
 

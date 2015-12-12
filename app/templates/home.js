@@ -1,4 +1,4 @@
-<h1>Home</h1>
+module.exports = `<h1>Home</h1>
 <div>
   <table>
     <tr ng-repeat="row in data track by $index">
@@ -9,3 +9,4 @@
 
 </div>
 <a ui-sref="add">Go to Add</a>
+`
