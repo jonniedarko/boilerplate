@@ -1,39 +1,20 @@
 var gulp = require('gulp');
-var sourcemaps = require('gulp-sourcemaps');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var browserify = require('browserify');
-var watchify = require('watchify');
-var babel = require('babelify');
 
-function compile(watch) {
-  var bundler = watchify(browserify('./app/app.js', { debug: true }).transform(babel));
+// Tasks functions
+var browserify = require('./gulp/browserify');
+var html = require('./gulp/copy-html');
+var nodemon = require('./gulp/nodemon');
 
-  function rebundle() {
-    bundler.bundle()
-      .on('error', function(err) { console.error(err); this.emit('end'); })
-      .pipe(source('app.js'))
-      .pipe(buffer())
-      .pipe(sourcemaps.init({ loadMaps: true }))
-      .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest('./public'));
-  }
+// Tasks
+gulp.task('build-browserify', browserify.build)
+gulp.task('watch-browserify', browserify.watch)
 
-  if (watch) {
-    bundler.on('update', function() {
-      console.log('-> bundling...');
-      rebundle();
-    });
-  }
+gulp.task('watch-html', html.watch);
+gulp.task('copy-html', html.copy);
 
-  rebundle();
-}
+gulp.task('watch', ['watch-html', 'watch-browserify']);
 
-function watch() {
-  return compile(true);
-};
+gulp.task('start', nodemon.dev)
 
-gulp.task('build', function() { return compile(); });
-gulp.task('watch', function() { return watch(); });
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['watch', 'start']);
