@@ -1,9 +1,15 @@
 require('angular');
 require('angular-ui-router');
+var Auth = require('./auth/auth.service');
+var AuthControllers = require('./auth/auth.controllers');
+var AuthInterceptor = require('./auth/auth.controllers');
+var CommonServices = require('./services')
+var Home = require('./home')
+var Add = require('./add')
 
 angular.module('app', ['ui.router'])
-
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+  //$httpProvider.interceptors.push('TokenInterceptor');
 
   $urlRouterProvider.otherwise('/');
 
@@ -21,46 +27,26 @@ angular.module('app', ['ui.router'])
     url: '/add',
     templateUrl: 'templates/add.html',
     controller: 'addCtrl'
+  })
+
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'loginCtrl'
+  })
+
+  .state('signup', {
+    url: '/signup',
+    templateUrl: 'templates/signup.html',
+    controller: 'signUpCtrl'
   });
 
 })
-
-  .controller('homeCtrl', function($scope, restService){
-    $scope.data = [];
-    restService.getData()
-    .success(function(data, status, headers, config){
-      console.log(data);
-      $scope.data = data.data;
-    })
-    .error(function(err){
-      console.error(arguments);
-    })
-    console.log('I\'m Home')
-
-  })
-  .controller('addCtrl', function($scope, restService){
-    $scope.form = {};
-     $scope.save = function(){
-       restService.saveData($scope.form)
-        .success(function(){
-            $scope.form = {};
-        })
-        .error(function (err){
-          console.error(err);
-        })
-     }
-  })
-  .factory('restService', function ($http){
-
-    return {
-      getData: function (){
-        return $http.get('/api/data');
-      },
-      saveData: function(data){
-        return $http.post('/api/data', data);
-      }
-
-    }
-
-
-  });
+.factory('TokenInterceptor', require('./auth/http.interceptor'))
+.service('AuthService', Auth.AuthService)
+.service('UserService', Auth.UserService)
+.controller('loginCtrl', AuthControllers.login)
+.controller('signUpCtrl', AuthControllers.signUp)
+.controller('homeCtrl', Home.controller)
+.controller('addCtrl', Add.controller)
+.factory('restService', CommonServices.Rest);

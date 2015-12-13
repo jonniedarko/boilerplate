@@ -1,0 +1,15 @@
+<h1>Login</h1>
+<form class="" role="form">
+
+  <label for="inputUsername">Username: &nbsp;</label>
+  <input type="text" id="inputUsername" placeholder="Username" ng-model="login.email">
+  <br />
+
+  <label for="inputPassword" >Password: &nbsp;</label>
+
+  <input type="password" id="inputPassword" placeholder="Password" ng-model="login.password">
+  <br />
+
+  <button type="submit" ng-click="logIn(login.email, login.password)">Log In</button>
+
+  </form>
