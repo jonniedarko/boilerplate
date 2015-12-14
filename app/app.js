@@ -6,6 +6,7 @@ var AuthInterceptor = require('./auth/auth.controllers');
 var CommonServices = require('./services')
 var Home = require('./home')
 var Add = require('./add')
+var navBar = require('./components/navbar')
 
 angular.module('app', ['ui.router'])
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -49,4 +50,5 @@ angular.module('app', ['ui.router'])
 .controller('signUpCtrl', AuthControllers.signUp)
 .controller('homeCtrl', Home.controller)
 .controller('addCtrl', Add.controller)
-.factory('restService', CommonServices.Rest);
+.factory('restService', CommonServices.Rest)
+.directive('navBar', navBar);

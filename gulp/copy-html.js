@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 
 function copyHTML(watch){
-  var htmlFiles = ['./app/**/*.html'/*, './app/templates/**'*/];
+  var htmlFiles = ['./app/**/*.html', './app/**/*.css'];
 
   function rebundle(){
     gulp.src(htmlFiles)

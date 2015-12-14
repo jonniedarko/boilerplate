@@ -14,7 +14,8 @@ var MongoStore = require('connect-mongo')(session);
 var secrets = {
   db: 'mongodb://localhost:27017/scratch',
   session: 'Your Session Secret goes here',
-}
+};
+
 /**
  * Connect to MongoDB.
  */
@@ -23,6 +24,9 @@ mongoose.connection.on('error', function() {
   console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
   process.exit(1);
 });
+
+
+var passportConf = require('./auth/passport');
 
 var app = express();
 app.set('env', 'Dev');

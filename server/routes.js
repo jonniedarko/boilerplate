@@ -1,3 +1,5 @@
+var Auth = require('./auth');
+
 module.exports = function(app) {
 
   // Insert routes below
@@ -15,6 +17,9 @@ module.exports = function(app) {
     console.log('body', req.body);
     res.status(200).end();
   });
+
+  app.post('/api/auth/signup', Auth.signup);
+  app.post('/api/auth/login', Auth.login);
   // All undefined asset or api routes should return a 404
 /*  app.route('/:url(api|auth|components|app|bower_components|assets)/*')
    .get(errors[404]);*/

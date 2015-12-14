@@ -2,16 +2,16 @@
 <form class="" role="form">
 
   <label for="inputUsername">Username: &nbsp;</label>
-  <input type="text" id="inputUsername" placeholder="Username" ng-model="login.email">
+  <input type="text" id="inputUsername" placeholder="Username" ng-model="form.email">
   <br />
 
   <label for="inputPassword" >Password: &nbsp;</label>
-  <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="login.password">
+  <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="form.password">
   <br />
   <label for="confirmInputPassword" >Confirm Password: &nbsp;</label>
-  <input type="password" class="form-control" id="confirmInputPassword" placeholder="Password" ng-model="login.confirmPassword">
+  <input type="password" class="form-control" id="confirmInputPassword" placeholder="Password" ng-model="form.confirmPassword">
   <br />
 
-  <button type="submit" ng-click="logIn()">Log In</button>
+  <button type="submit" ng-click="signup()">Log In</button>
 
   </form>

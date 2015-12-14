@@ -15,7 +15,7 @@ module.exports.UserService = ['$http', function($http) {
         logOut: function() {
 
         },
-        signup: function(username, password, confirmPassword){
+        signUp: function(username, password, confirmPassword){
           return $http.post('api/auth/signup', {username: username, password: password});
         }
     }
