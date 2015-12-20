@@ -11,8 +11,14 @@ module.exports = ['UserService', 'AuthService', function(UserService, AuthServic
           scope.logout = function(){
               debugger;
               UserService.logOut()
-                  .success(console.info)
-                  .error(console.error)
+                  .success(function(){
+                      debugger;
+                      console.log('arguments', arguments);
+                  })
+                  .error(function(){
+                      debugger;
+                      console.error('arguments', arguments);
+                  })
           }
       }
   };

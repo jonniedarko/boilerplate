@@ -19,7 +19,8 @@ angular.module('app', ['ui.router'])
     .state('home', {
     url: '/',
     templateUrl: 'templates/home.html',
-    controller:'homeCtrl'
+    controller:'homeCtrl',
+        loginRequired: true
   })
 
   // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
@@ -27,7 +28,8 @@ angular.module('app', ['ui.router'])
     // we'll get to this in a bit
     url: '/add',
     templateUrl: 'templates/add.html',
-    controller: 'addCtrl'
+    controller: 'addCtrl',
+        loginRequired: true
   })
 
   .state('login', {
@@ -43,6 +45,22 @@ angular.module('app', ['ui.router'])
   });
 
 })
+    .run(['$location','$rootScope','AuthService',function ($location, $rootScope, AuthService) {
+      var postLogInRoute;
+
+      $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute) {
+
+        //if login required and you're logged out, capture the current path
+        if (nextRoute.loginRequired && !AuthService.checkIsLoggedIn()) {
+          postLogInRoute = $location.path();
+          $location.path('/login').replace();
+        } else if (postLogInRoute && AuthService.checkIsLoggedIn()) {
+          //once logged in, redirect to the last route and reset it
+          $location.path(postLogInRoute).replace();
+          postLogInRoute = null;
+        }
+      });
+	}])
 .factory('TokenInterceptor', require('./auth/http.interceptor'))
 .service('AuthService', Auth.AuthService)
 .service('UserService', Auth.UserService)
@@ -51,4 +69,4 @@ angular.module('app', ['ui.router'])
 .controller('homeCtrl', Home.controller)
 .controller('addCtrl', Add.controller)
 .factory('restService', CommonServices.Rest)
-.directive('navBar', navBar);
+.directive('navBar', navBar)

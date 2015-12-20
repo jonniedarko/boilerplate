@@ -29,6 +29,7 @@ module.exports.UserService = ['$http', '$q', 'AuthService', function($http, $q, 
         },
 
         logOut: function() {
+            debugger;
             return $http.post('api/auth/logout');
         },
         signUp: function(email, password, confirmPassword){
