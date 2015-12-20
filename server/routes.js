@@ -3,7 +3,7 @@ var Auth = require('./auth');
 module.exports = function(app) {
 
   // Insert routes below
-  app.get('/api/data', function(req, res){
+  app.get('/api/data', Auth.isAuthenticated, function(req, res){
     return res.status(200).json({
       data : [
         [1,2,3,4,5,6],
@@ -20,13 +20,6 @@ module.exports = function(app) {
 
   app.post('/api/auth/signup', Auth.signup);
   app.post('/api/auth/login', Auth.login);
-  // All undefined asset or api routes should return a 404
-/*  app.route('/:url(api|auth|components|app|bower_components|assets)/*')
-   .get(errors[404]);*/
+  app.post('/api/auth/logout', Auth.logout);
 
-  // All other routes should redirect to the index.html
-/*  app.route('/*')
-    .get(function(req, res) {
-      res.sendFile(path.resolve(app.get('appPath') + '/index.html'));
-    });*/
 };

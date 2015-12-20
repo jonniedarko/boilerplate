@@ -1,8 +1,9 @@
 <header>
  <div class="nav">
    <ul>
-     <li class="home"><a ui-sref="/">Home</a></li>
-     <li class="tutorials"><a class="active" ui-sref="add">Add</a></li>
+     <li class="home"><a ui-sref-active="active" ui-sref="home">Home</a></li>
+     <li class="tutorials"><a ui-sref-active="active" ui-sref="add">Add</a></li>
+     <li class="logout"><a ui-sref-active="active" ng-click="logout()">Logout</a></li>
 
    </ul>
  </div>

@@ -5,6 +5,7 @@ var passport = require('passport');
  * Sign in using email and password.
  */
 exports.login = function(req, res, next) {
+  console.log('login body', req.body);
   //req.assert('email', 'Email is not valid').isEmail();
   //req.assert('password', 'Password cannot be blank').notEmpty();
 
@@ -29,7 +30,8 @@ exports.login = function(req, res, next) {
       }
     //  req.flash('success', { msg: 'Success! You are logged in.' });
       //res.redirect(req.session.returnTo || '/');
-      res.status(200).send('logged In')
+      console.log('session',req.session)
+      res.status(200).send(req.session.passport.user)
     });
   })(req, res, next);
 };
@@ -50,6 +52,7 @@ exports.signup = function(req, res, next) {
     req.flash('errors', errors);
     return res.redirect('/signup');
   }*/
+  console.log('signup body', req.body);
 
   var user = new User({
     email: req.body.email,
@@ -65,21 +68,30 @@ exports.signup = function(req, res, next) {
       if (err) {
         return next(err);
       }
-    /*  req.logIn(user, function(err) {
+      req.logIn(user, function(err) {
         if (err) {
           return next(err);
-        }*/
+        }
         res.status(200).end();
-      //});
+      });
     });
   });
 };
 
+exports.logout = function(req, res, next){
+
+  req.logout();
+
+  res.status(200).end();
+}
+
 exports.isAuthenticated = function(req, res, next) {
+  console.log('isAuthenticated?')
   if (req.isAuthenticated()) {
+    console.log('isAuthenticated TRUE');
     return next();
   }
-  res.redirect('/login');
+  res.status(401).end();
 };
 
 /**

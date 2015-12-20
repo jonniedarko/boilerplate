@@ -10,7 +10,7 @@ var navBar = require('./components/navbar')
 
 angular.module('app', ['ui.router'])
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
-  //$httpProvider.interceptors.push('TokenInterceptor');
+      $httpProvider.interceptors.push('TokenInterceptor');
 
   $urlRouterProvider.otherwise('/');
 

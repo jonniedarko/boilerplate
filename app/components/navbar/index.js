@@ -8,6 +8,12 @@ module.exports = ['UserService', 'AuthService', function(UserService, AuthServic
         scope.redirect = function(){
           // redirect to...
         }
+          scope.logout = function(){
+              debugger;
+              UserService.logOut()
+                  .success(console.info)
+                  .error(console.error)
+          }
       }
   };
 }];

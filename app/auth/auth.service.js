@@ -1,22 +1,39 @@
 module.exports.AuthService = [function authService() {
-    var auth = {
-        isLogged: false
-    }
+    var isLogged = false;
 
-    return auth;
+
+    return {
+        setLoggedIn: function(bool){
+            isLogged = bool;
+        },
+        checkIsLoggedIn:function (){
+            return isLogged;
+        }
+    };
 }];
 
-module.exports.UserService = ['$http', function($http) {
+module.exports.UserService = ['$http', '$q', 'AuthService', function($http, $q, AuthService) {
     return {
-        logIn: function(username, password) {
-            return $http.post('api/auth/login', {username: username, password: password});
+        logIn: function(email, password) {
+            var deferred  = $q.defer();
+
+            $http.post('api/auth/login', {email: email, password: password})
+                .success(function(data){
+
+                    AuthService.setLoggedIn(true);
+
+                })
+                .error(deferred.reject);
+
+            return deferred.promise
         },
 
         logOut: function() {
-
+            return $http.post('api/auth/logout');
         },
-        signUp: function(username, password, confirmPassword){
-          return $http.post('api/auth/signup', {username: username, password: password});
+        signUp: function(email, password, confirmPassword){
+            debugger;
+          return $http.post('api/auth/signup', {email: email, password: password});
         }
     }
 }];
