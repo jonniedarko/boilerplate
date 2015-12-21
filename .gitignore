@@ -2,3 +2,4 @@ node_modules/
 app/vendor/
 public/
 .idea/
+config/secrets.js
