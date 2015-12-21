@@ -12,6 +12,17 @@ module.exports.login = ['$scope', 'UserService', function($scope, UserService) {
       });
   }
 
+  $scope.googleLogin = function () {
+    UserService.googleLogin()
+        .success(function(){
+          console.log(arguments)
+        })
+        .error(function(){
+          console.error(arguments)
+        })
+
+  }
+
 }]
 
 module.exports.signUp = ['$scope', 'UserService', function($scope, UserService) {

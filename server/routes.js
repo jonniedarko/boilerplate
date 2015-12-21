@@ -1,4 +1,5 @@
 var Auth = require('./auth');
+var passport = require('passport');
 
 module.exports = function(app) {
 
@@ -21,5 +22,16 @@ module.exports = function(app) {
   app.post('/api/auth/signup', Auth.signup);
   app.post('/api/auth/login', Auth.login);
   app.post('/api/auth/logout', Auth.logout);
+
+  app.get('/auth/google', passport.authenticate('google', { scope: [
+    'profile',
+    'email',
+    'https://spreadsheets.google.com/feeds',
+    'https://docs.google.com/feeds'
+  ].join(' '), accessType: 'offline', approvalPrompt: 'force' }));
+
+  app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/#/login' }), function(req, res) {
+    res.redirect('/'); //req.session.returnTo ||
+  });
 
 };

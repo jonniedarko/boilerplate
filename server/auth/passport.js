@@ -2,6 +2,7 @@ var _ = require('lodash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var secrets = require('../../config/secrets');
 
 var User = require('../models/user');
 

@@ -35,6 +35,9 @@ module.exports.UserService = ['$http', '$q', 'AuthService', function($http, $q, 
         signUp: function(email, password, confirmPassword){
             debugger;
           return $http.post('api/auth/signup', {email: email, password: password});
+        },
+        googleLogin: function(){
+            return $http.get('auth/google');
         }
     }
 }];
