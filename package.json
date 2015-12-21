@@ -15,6 +15,7 @@
     "babel-core": "^6.3.15",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
+    "bootstrap": "^3.3.6",
     "connect-mongo": "^0.8.2",
     "crypto": "0.0.3",
     "express": "^4.13.3",
@@ -29,6 +30,7 @@
   "devDependencies": {
     "babel": "^6.3.13",
     "babel-core": "^6.3.15",
+    "gulp-less": "^3.0.5",
     "gulp-nodemon": "^2.0.4"
   }
 }
