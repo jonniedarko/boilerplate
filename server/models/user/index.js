@@ -8,11 +8,12 @@ var userSchema = new mongoose.Schema({
 /*
   facebook: String,
   twitter: String,
-  google: String,
   github: String,
   instagram: String,
-  linkedin: String,
+  linkedin: String,*/
   tokens: Array,
+  google: String,
+
 
   profile: {
     name: { type: String, default: '' },
@@ -20,7 +21,8 @@ var userSchema = new mongoose.Schema({
     location: { type: String, default: '' },
     website: { type: String, default: '' },
     picture: { type: String, default: '' }
-  },*/
+  },
+
 
   resetPasswordToken: String,
   resetPasswordExpires: Date
