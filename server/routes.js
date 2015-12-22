@@ -14,6 +14,15 @@ module.exports = function(app) {
     });
   });
 
+  app.get('/api/user', Auth.isAuthenticated, function (req,res){
+
+    console.log('BLAH');
+
+    var user = req.user.profile;
+    user.email = req.user.email;
+    res.status(200).json(user);
+  });
+
   app.post('/api/data', function(req, res){
     console.log('body', req.body);
     res.status(200).end();

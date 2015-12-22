@@ -38,6 +38,9 @@ module.exports.UserService = ['$http', '$q', 'AuthService', function($http, $q, 
         },
         googleLogin: function(){
             return $http.get('auth/google');
+        },
+        getUserInfo: function(){
+            return $http.get('api/user');
         }
     }
 }];

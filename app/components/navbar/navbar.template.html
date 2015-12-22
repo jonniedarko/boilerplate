@@ -26,8 +26,10 @@
         <ul class="nav navbar-nav">
             <li class="home"><a ui-sref-active="active" ui-sref="home">Home</a></li>
             <li class="Add"><a ui-sref-active="active" ui-sref="add">Add</a></li>
-            <li class="logout"><a ui-sref-active="active" ng-click="logout()">Logout</a></li>
+            <li ng-if="user!==null" class="logout"><a ui-sref-active="active" ng-click="logout()">Logout</a></li>
+            <li ng-if="user===null" ><a ui-sref-active="active" ui-sref="login">Login</a></li>
+            <li ng-if="user!==null" ><span>Welcome {{user.name}}!</span></li>
         </ul>
-       git
+
     </div><!-- /.container-fluid -->
 </nav>

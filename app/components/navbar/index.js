@@ -5,11 +5,18 @@ module.exports = ['UserService', 'AuthService', function(UserService, AuthServic
       restrict: 'EA',
       templateUrl: './components/navbar/navbar.template.html',//path.join(__dirname, 'index'),
       link: function(scope){
-        scope.redirect = function(){
-          // redirect to...
-        }
+            scope.user = null;
+
+            UserService.getUserInfo()
+                .success(function(data){
+                    console.log('arguments', arguments);
+                    scope.user = data;
+                })
+                .error(function(){
+                    console.error('arguments', arguments);
+                })
           scope.logout = function(){
-              debugger;
+
               UserService.logOut()
                   .success(function(){
                       debugger;
