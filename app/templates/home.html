@@ -1,11 +1,27 @@
-<h1>Home</h1>
-<div>
-  <table>
-    <tr ng-repeat="row in data track by $index">
+<div ng-if="user!==null">
+	<h1>Home</h1>
+	<div>
+	  <table>
+	    <tr ng-repeat="row in data track by $index">
 
-      <td ng-repeat="col in row track by $index">{{col}}</td>
-    </tr>
-  </table>
+	      <td ng-repeat="col in row track by $index">{{col}}</td>
+	    </tr>
+	  </table>
+
+	</div>
+	<a ui-sref="add">Go to Add</a>
+</div>
+<div ng-if="user===null">
+	<h1>Home</h1>
+	<div>
+	  <table>
+	    <tr ng-repeat="row in data track by $index">
+
+	      <td ng-repeat="col in row track by $index">{{col}}</td>
+	    </tr>
+	  </table>
+
+	</div>
+	<a ui-sref="add">Go to Add</a>
 
 </div>
-<a ui-sref="add">Go to Add</a>

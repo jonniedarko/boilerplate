@@ -1,31 +1,23 @@
 //var path = require('path');
 module.exports = ['UserService', 'AuthService', function(UserService, AuthService) {
-  return {
-      scope:{},
-      restrict: 'EA',
-      templateUrl: './components/navbar/navbar.template.html',//path.join(__dirname, 'index'),
-      link: function(scope){
-            scope.user = null;
+    return {
+        scope: {},
+        restrict: 'EA',
+        templateUrl: './components/navbar/navbar.template.html',
+        link: function(scope) {
 
-            scope.$watch(AuthService.checkIsLoggedIn, function(isLoggedIn){
-                console.log('watch isLoggedIn:', isLoggedIn);
-                if(isLoggedIn) {
-                    UserService.getUserInfo()
-                        .success(function (data) {
-                            console.log('arguments', arguments);
-                            scope.user = data;
-                        })
-                        .error(function () {
-                            console.error('arguments', arguments);
-                        });
+            scope.isLoggedIn = AuthService.isLoggedIn
+            scope.user = AuthService.user;
+            scope.logout = UserService.logOut;
 
-                    scope.logout = function () {
+            scope.$on('AuthService:changed', function() {
+                scope.isLoggedIn = AuthService.isLoggedIn
+                scope.user = AuthService.user;
 
-                        UserService.logOut()
-                    }
-                }
             })
 
-      }
-  };
+
+
+        }
+    };
 }];

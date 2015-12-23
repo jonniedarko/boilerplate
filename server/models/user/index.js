@@ -28,6 +28,23 @@ var userSchema = new mongoose.Schema({
   resetPasswordExpires: Date
 });
 
+userSchema.methods.toJSON = function(){
+	var user = this;
+	var names = user.profile.name.split(' ');
+	var name = {
+		full : user.name,
+		first : names[0],
+		last :names[names[names.length -1]]
+	};
+
+	return {
+		name: name,
+		email: user.email,
+		picture:user.picture
+
+	}
+}
+
 /**
  * Password hash middleware.
  */

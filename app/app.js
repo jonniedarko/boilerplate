@@ -1,16 +1,18 @@
 require('angular');
 require('angular-ui-router');
-var Auth = require('./auth/auth.service');
+//var AuthModule =
+require('./auth');
 var AuthControllers = require('./auth/auth.controllers');
-var AuthInterceptor = require('./auth/auth.controllers');
+//var AuthInterceptor = require('./auth/auth.controllers');
 var CommonServices = require('./services')
 var Home = require('./home')
 var Add = require('./add')
 var navBar = require('./components/navbar')
 
-angular.module('app', ['ui.router'])
+
+angular.module('app', ['ui.router','Auth'])
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
-      $httpProvider.interceptors.push('TokenInterceptor');
+      $httpProvider.interceptors.push('AuthInterceptor');
 
   $urlRouterProvider.otherwise('/');
 
@@ -37,6 +39,20 @@ angular.module('app', ['ui.router'])
     templateUrl: 'templates/login.html',
     controller: 'loginCtrl'
   })
+   .state('logout', {
+     url: 'logut',
+	 resolve: {
+		logout: ['AuthService','$state', function(UserService, $state){
+
+			UserService.logOut(function(){
+				$state.go('login');
+			})
+
+		}]
+	 }
+     //templateUrl: 'templates/login.html',
+     //controller: 'loginCtrl'
+   })
 
   .state('signup', {
     url: '/signup',
@@ -46,29 +62,37 @@ angular.module('app', ['ui.router'])
 
 })
     .run(['$location','$rootScope','AuthService',function ($location, $rootScope, AuthService) {
-      var postLogInRoute;
+      /*var postLogInRoute;
+	  $rootScope.isLoggedIn = AuthService.isLoggedIn;
+	  $rootScope.user = AuthService.user;
+	  $rootScope.$watch(AuthService.isLoggedIn, function(nw,old){
+		  console.log('AuthService.isLoggedIn changed', nw, old);
+	  })
+	  $rootScope.$watch(AuthService.user, function(nw,old){
+		console.log('AuthService.user changed', nw, old);
+	})*/
 
-      AuthService.sessionExists()
+      /*AuthService.sessionExists()
           .success(function(){
             AuthService.setLoggedIn(true);
-          })
+          })*/
 
       $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute) {
 
         //if login required and you're logged out, capture the current path
-        if (nextRoute.loginRequired && !AuthService.checkIsLoggedIn()) {
+        if (nextRoute.loginRequired && !AuthService.isLoggedIn) {
           postLogInRoute = $location.path();
           $location.path('/login').replace();
-        } else if (postLogInRoute && AuthService.checkIsLoggedIn()) {
+        } else if (postLogInRoute && AuthService.isLoggedIn) {
           //once logged in, redirect to the last route and reset it
           $location.path(postLogInRoute).replace();
           postLogInRoute = null;
         }
       });
 	}])
-.factory('TokenInterceptor', require('./auth/http.interceptor'))
+/*.factory('TokenInterceptor', require('./auth/http.interceptor'))
 .service('AuthService', Auth.AuthService)
-.service('UserService', Auth.UserService)
+.factory('UserService', Auth.UserService)*/
 .controller('loginCtrl', AuthControllers.login)
 .controller('signUpCtrl', AuthControllers.signUp)
 .controller('homeCtrl', Home.controller)

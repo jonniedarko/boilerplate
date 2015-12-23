@@ -18,9 +18,10 @@ module.exports = function(app) {
 
     console.log('BLAH');
 
-    var user = req.user.profile;
-    user.email = req.user.email;
-    res.status(200).json(user);
+    /*var user = req.user.profile;
+
+    user.email = req.user.email;*/
+    res.status(200).json(req.user.toJSON());
   });
 
   app.post('/api/data', function(req, res){

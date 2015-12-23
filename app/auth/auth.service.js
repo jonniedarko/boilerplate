@@ -1,60 +1,49 @@
-module.exports.AuthService = ['$http', function authService($http) {
-    var isLogged = false;
+const AuthService = ['$http', '$rootScope', function AuthServiceFn($http, $rootScope) {
+	var userIsLoggedIn = false;
+	var loggedInUser = null;
 
+	$http.get('api/auth')
+		.success(function(){
 
-    return {
-        setLoggedIn: function(bool){
-            isLogged = bool;
-        },
-        checkIsLoggedIn:function (){
-            return isLogged;
-        },
-        sessionExists: function(){
-            return $http.get('api/auth');
-        }
-    };
-}];
+			$http.get('api/user')
+			.success(function (userInfo){
+				userIsLoggedIn = true;
+				loggedInUser = userInfo
+				debugger;
+				$rootScope.$broadcast('AuthService:changed');
+			});
+		})
 
-module.exports.UserService = ['$http', '$q', 'AuthService', '$state',function($http, $q, AuthService, $state) {
-    return {
-        logIn: function(email, password) {
-            var deferred  = $q.defer();
+	var auth ={
+		get isLoggedIn(){
+			debugger;
+			console.log('get isLoggedIn', userIsLoggedIn);
+			return userIsLoggedIn;
+		},
+		set isLoggedIn(bool){
+			console.log('set isLoggedIn', bool);
+			debugger;
+			if(bool !== true && bool !== false) throw new TypeError('isLoggedIn Must be a valid boolean');
+			userIsLoggedIn = bool;
 
-            $http.post('api/auth/login', {email: email, password: password})
-                .success(function(data){
+			if(bool === false){
+				this.user = null;
+			}
+			$rootScope.$broadcast('AuthService:changed');
+		},
+		get user() {
+			console.log('loggedInUser', loggedInUser);
+			return loggedInUser;
+		},
+		set user(user){
+			loggedInUser = user;
+			//$rootScope.$broadcast('AuthService:changed');
+		}
+   };
 
-                    AuthService.setLoggedIn(true);
+    return auth
+}]
+angular = require('angular');
 
-
-                })
-                .error(deferred.reject);
-
-            return deferred.promise
-        },
-
-        logOut: function() {
-            $http.post('api/auth/logout')
-                .success(function(){
-
-                    AuthService.setLoggedIn(false);
-                    $state.go('home');
-
-                })
-                .error(function(){
-
-                });
-
-
-        },
-        signUp: function(email, password, confirmPassword){
-            debugger;
-          return $http.post('api/auth/signup', {email: email, password: password});
-        },
-        googleLogin: function(){
-            return $http.get('auth/google');
-        },
-        getUserInfo: function(){
-            return $http.get('api/user');
-        }
-    }
-}];
+module.exports = angular.module('Auth.AuthService', [])
+		.factory('AuthService', AuthService);

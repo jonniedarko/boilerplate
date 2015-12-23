@@ -1,6 +1,6 @@
 
 
-module.exports = ['$injector', '$q', function ($injector, $q) {
+var Interceptor = ['$injector', '$q', function InterceptorFn($injector, $q) {
     return {
         request: function (config) {
 
@@ -36,3 +36,9 @@ module.exports = ['$injector', '$q', function ($injector, $q) {
         }
     };
 }];
+
+angular = require('angular');
+
+module.exports =
+	angular.module('Auth.Interceptor', [])
+		.factory('AuthInterceptor', Interceptor);
