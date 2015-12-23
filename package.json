@@ -25,10 +25,16 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+    "babel-preset-stage-0": "^6.3.13",
     "babelify": "^7.2.0",
+    "browserify": "^12.0.1",
     "gulp": "^3.9.0",
     "gulp-less": "^3.0.5",
     "gulp-nodemon": "^2.0.4",
-    "gulp-sass": "^2.1.1"
+    "gulp-sass": "^2.1.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.6.1"
   }
 }
