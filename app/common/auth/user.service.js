@@ -1,6 +1,6 @@
 require('./auth.service');
 
-var UserService = ['$http', '$q', 'AuthService', '$state', function UserServiceFn($http, $q, AuthService, $state) {
+const UserService = ['$http', '$q', 'AuthService', '$state', function UserServiceFn($http, $q, AuthService, $state) {
     return {
         logIn: function(email, password) {
             var deferred  = $q.defer();
@@ -49,6 +49,7 @@ var UserService = ['$http', '$q', 'AuthService', '$state', function UserServiceF
         }
     }
 }];
+
 angular = require('angular');
 
 module.exports =

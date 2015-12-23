@@ -43,7 +43,11 @@ const AuthService = ['$http', '$rootScope', function AuthServiceFn($http, $rootS
 
     return auth
 }]
+
 angular = require('angular');
 
-module.exports = angular.module('Auth.AuthService', [])
+ModuleName = 'Auth.AuthService';
+Module = angular.module(ModuleName, [])
 		.factory('AuthService', AuthService);
+
+module.exports = Module
