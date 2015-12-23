@@ -1,4 +1,4 @@
-module.exports.AuthService = [function authService() {
+module.exports.AuthService = ['$http', function authService($http) {
     var isLogged = false;
 
 
@@ -8,11 +8,14 @@ module.exports.AuthService = [function authService() {
         },
         checkIsLoggedIn:function (){
             return isLogged;
+        },
+        sessionExists: function(){
+            return $http.get('api/auth');
         }
     };
 }];
 
-module.exports.UserService = ['$http', '$q', 'AuthService', function($http, $q, AuthService) {
+module.exports.UserService = ['$http', '$q', 'AuthService', '$state',function($http, $q, AuthService, $state) {
     return {
         logIn: function(email, password) {
             var deferred  = $q.defer();
@@ -22,6 +25,7 @@ module.exports.UserService = ['$http', '$q', 'AuthService', function($http, $q, 
 
                     AuthService.setLoggedIn(true);
 
+
                 })
                 .error(deferred.reject);
 
@@ -29,8 +33,18 @@ module.exports.UserService = ['$http', '$q', 'AuthService', function($http, $q, 
         },
 
         logOut: function() {
-            debugger;
-            return $http.post('api/auth/logout');
+            $http.post('api/auth/logout')
+                .success(function(){
+
+                    AuthService.setLoggedIn(false);
+                    $state.go('home');
+
+                })
+                .error(function(){
+
+                });
+
+
         },
         signUp: function(email, password, confirmPassword){
             debugger;

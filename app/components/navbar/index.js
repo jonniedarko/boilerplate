@@ -7,26 +7,25 @@ module.exports = ['UserService', 'AuthService', function(UserService, AuthServic
       link: function(scope){
             scope.user = null;
 
-            UserService.getUserInfo()
-                .success(function(data){
-                    console.log('arguments', arguments);
-                    scope.user = data;
-                })
-                .error(function(){
-                    console.error('arguments', arguments);
-                })
-          scope.logout = function(){
+            scope.$watch(AuthService.checkIsLoggedIn, function(isLoggedIn){
+                console.log('watch isLoggedIn:', isLoggedIn);
+                if(isLoggedIn) {
+                    UserService.getUserInfo()
+                        .success(function (data) {
+                            console.log('arguments', arguments);
+                            scope.user = data;
+                        })
+                        .error(function () {
+                            console.error('arguments', arguments);
+                        });
 
-              UserService.logOut()
-                  .success(function(){
-                      debugger;
-                      console.log('arguments', arguments);
-                  })
-                  .error(function(){
-                      debugger;
-                      console.error('arguments', arguments);
-                  })
-          }
+                    scope.logout = function () {
+
+                        UserService.logOut()
+                    }
+                }
+            })
+
       }
   };
 }];

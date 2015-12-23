@@ -48,6 +48,11 @@ angular.module('app', ['ui.router'])
     .run(['$location','$rootScope','AuthService',function ($location, $rootScope, AuthService) {
       var postLogInRoute;
 
+      AuthService.sessionExists()
+          .success(function(){
+            AuthService.setLoggedIn(true);
+          })
+
       $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute) {
 
         //if login required and you're logged out, capture the current path
