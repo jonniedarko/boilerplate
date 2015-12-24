@@ -2,12 +2,7 @@ require('angular');
 require('angular-ui-router');
 
 require('./common');
-//var AuthControllers = require('./common/auth/auth.controllers');
 require('./routes');
-var Home = require('./home')
-var Add = require('./add');
-
-
 
 
 angular.module('app', ['ui.router', 'Auth', 'Components', 'Services', 'Routes'])
@@ -26,5 +21,4 @@ angular.module('app', ['ui.router', 'Auth', 'Components', 'Services', 'Routes'])
             }
         });
     }])
-    .controller('homeCtrl', Home.controller)
-    .controller('addCtrl', Add.controller)
+

@@ -1,6 +1,8 @@
 require('./login');
 require('./signup');
 require('./logout');
+require('./home');
+require('./add');
 
 module.exports = angular.module('Routes',['Routes.Login', 'Routes.SignUp', 'Routes.Home', 'Routes.Add'])
 .config(function($stateProvider, $urlRouterProvider) {
