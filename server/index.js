@@ -31,6 +31,7 @@ var passportConf = require('./auth/passport');
 var app = express();
 app.set('env', 'Dev');
 app.set('publicDir', path.join(__dirname, '..', 'public'));
+
 // Log requests to console
 app.use(morgan('dev'));
 app.use(session({
@@ -50,9 +51,7 @@ app.use(function (req, res, next) {
 });
 
 app.use(function(req, res, next) {
-  //if (/api/i.test(req.path)) {
-    req.session.returnTo = '/';//req.path;
-  //}
+    req.session.returnTo = '/';
   next();
 });
 
@@ -60,7 +59,7 @@ app.use(express.static(app.get('publicDir')));
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-require('./routes')(app);
+app.use('/', require('./routes'));
 
 var server = http.createServer(app);
 
@@ -73,4 +72,4 @@ function startServer() {
 setImmediate(startServer);
 
 // Expose app
-exports = module.exports = app;
+module.exports = app;
