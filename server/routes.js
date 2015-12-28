@@ -18,12 +18,6 @@ router.get('/api/data', Auth.middleware.isAuthenticated, function (req, res) {
 });
 
 router.get('/api/user', Auth.middleware.isAuthenticated, function (req, res) {
-
-	console.log('BLAH');
-
-	/*var user = req.user.profile;
-
-	 user.email = req.user.email;*/
 	res.status(200).json(req.user.toJSON());
 });
 

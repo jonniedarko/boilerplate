@@ -1,5 +1,5 @@
-//var User = require('../models/user');
-var UserCtrl = require('../user').controller;
+var User = require('../user');
+var UserCtrl = User.controller;
 var passport = require('passport');
 /**
  * POST /login
@@ -13,8 +13,7 @@ exports.login = function(req, res, next) {
       return next(err);
     }
     if (!user) {
-    //  req.flash('errors', { msg: info.message });
-      return res.status(401).send('Username or Password is incorrect')//res.redirect('/login');
+      return res.status(401).send('Username or Password is incorrect');
     }
     req.logIn(user, function(err) {
       if (err) {
@@ -32,6 +31,7 @@ exports.login = function(req, res, next) {
  * Signup page.
  */
 exports.signup = function(req, res, next) {
+  console.log('UserCtrl', UserCtrl);
 
   UserCtrl.signUp(req.body.email, req.body.password)
       .then(function(user){

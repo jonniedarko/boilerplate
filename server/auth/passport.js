@@ -2,7 +2,7 @@ var _ = require('lodash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var secrets = require('../../config/secrets');
+var Config = require('../../config');
 
 var User = require('../user').model;
 
@@ -38,7 +38,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
 /**
  * Sign in with Google.
  */
-passport.use(new GoogleStrategy(secrets.google, function(req, accessToken, refreshToken, profile, done) {
+passport.use(new GoogleStrategy(Config.google, function(req, accessToken, refreshToken, profile, done) {
   console.log('passport access_token', accessToken);
   console.log('passport refresh_token', refreshToken);
   if (req.user) {
@@ -85,3 +85,5 @@ passport.use(new GoogleStrategy(secrets.google, function(req, accessToken, refre
     });
   }
 }));
+
+module.exports = passport;
