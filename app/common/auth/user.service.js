@@ -21,7 +21,7 @@ const UserService = ['$http', '$q', 'AuthService', '$state', function UserServic
         logOut: function() {
             $http.post('api/auth/logout')
                 .success(function(){
-				debugger;
+
                     AuthService.isLoggedIn = false;
                     $state.go('login');
                 })
@@ -32,7 +32,7 @@ const UserService = ['$http', '$q', 'AuthService', '$state', function UserServic
 
         },
         signUp: function(email, password, confirmPassword){
-            debugger;
+
           return $http.post('api/auth/signup', {email: email, password: password});
         },
         googleLogin: function(){

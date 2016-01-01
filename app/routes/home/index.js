@@ -6,7 +6,8 @@ const homeCtrl = ['$scope', 'restService', 'AuthService', function homeCtrl($sco
 		    restService.getData()
 		        .success(function(data, status, headers, config) {
 		            console.log(data);
-		            $scope.data = data.data;
+				    //debugger;
+		            $scope.data = data;//.data;
 		        })
 		        .error(function(err) {
 		            console.error(arguments);

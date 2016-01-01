@@ -4,6 +4,7 @@ var Config = require('../config');
 var express = require('express');
 var path = require('path');
 var http = require('http');
+var https = require('https');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
@@ -26,11 +27,11 @@ mongoose.connection.on('error', function () {
 require('./auth/passport');
 
 var app = express();
-app.set('env', 'Dev');
+app.set('env', Config.env);
 app.set('publicDir', path.join(__dirname, '..', 'public'));
 
 // Log requests to console
-app.use(morgan('dev'));
+app.use(morgan(Config.env));
 app.use(session({
 	resave: true,
 	saveUninitialized: true,
@@ -59,11 +60,15 @@ app.use(bodyParser.urlencoded({extended: true})); // support encoded bodies
 app.use('/', require('./routes'));
 
 var server = http.createServer(app);
+//var secureServer = https.createServer({}, app);
 
 function startServer() {
-	server.listen(9000, function () {
+	server.listen(Config.http.port, function () {
+		console.log('Express server listening on %d, in %s mode', Config.http.port,  Config.env);
+	})
+	/*secureServer.listen(9000, function () {
 		console.log('Express server listening on %d, in %s mode', 9000, app.get('env'));
-	});
+	});*/
 }
 
 setImmediate(startServer);

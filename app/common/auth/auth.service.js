@@ -9,20 +9,20 @@ const AuthService = ['$http', '$rootScope', function AuthServiceFn($http, $rootS
 			.success(function (userInfo){
 				userIsLoggedIn = true;
 				loggedInUser = userInfo
-				debugger;
+
 				$rootScope.$broadcast('AuthService:changed');
 			});
 		})
 
 	var auth ={
 		get isLoggedIn(){
-			debugger;
+
 			console.log('get isLoggedIn', userIsLoggedIn);
 			return userIsLoggedIn;
 		},
 		set isLoggedIn(bool){
 			console.log('set isLoggedIn', bool);
-			debugger;
+
 			if(bool !== true && bool !== false) throw new TypeError('isLoggedIn Must be a valid boolean');
 			userIsLoggedIn = bool;
 

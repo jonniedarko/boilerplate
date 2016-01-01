@@ -1,5 +1,11 @@
 module.exports = {
-	port: 9000,
+	env : process.env.ENV || 'dev',
+	http: {
+		port: process.env.HTTPPORT || 9000
+	},
+	https: {
+		port: process.env.HTTPSPORT || 9043
+	},
 	db: process.env.MONGODB || 'mongodb://localhost:27017/test',
 
 	sessionSecret: process.env.SESSION_SECRET || 'Your Session Secret goes here',
@@ -12,4 +18,4 @@ module.exports = {
 		callbackURL: '/auth/google/callback',
 		passReqToCallback: true
 	}
-}
+};

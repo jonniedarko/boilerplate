@@ -5,6 +5,7 @@ var router = express.Router();
 
 var Auth = require('./auth');
 var User = require('./user');
+var sheets = require('./workout');
 
 // Insert routes below
 router.get('/api/data', Auth.middleware.isAuthenticated, function (req, res) {
@@ -36,4 +37,7 @@ router.get('/api/auth', function (req, res) {
 router.use('/api/user', User.routes);
 router.use('/api/auth', Auth.routes);
 router.use('/', Auth.oauth2);
+
+router.use('/api/sheet', sheets.routes);
+
 module.exports = router;
