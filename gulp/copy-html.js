@@ -1,14 +1,19 @@
 var gulp = require('gulp');
+var rename = require('gulp-rename');
 
 function copyHTML(watch){
-  var htmlFiles = ['./app/**/*.html', './app/**/*.css'];
-
+  var htmlFiles = ['./app/index.html', './app/**/*.css'];
+  var htmlTemplates = ['./app/**/*.html', '!./app/index.html'];
   function rebundle(){
     gulp.src(htmlFiles)
         .pipe(gulp.dest('./public'));
+
+     gulp.src(htmlTemplates)
+          .pipe(rename({dirname: ''}))
+        .pipe(gulp.dest('./public/templates'));
   }
   if(watch){
-    gulp.watch(htmlFiles, rebundle);
+    gulp.watch(['./app/**/*.html', './app/**/*.css'], rebundle);
   }
   rebundle();
 

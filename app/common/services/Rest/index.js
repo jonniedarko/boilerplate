@@ -8,14 +8,17 @@ const Rest = ['$http', function RestFn($http){
     saveData: function(data){
       return $http.post('/api/sheet', data);
     },
+
+    //@todo remove
     list: function(){
-      return $http.get('/api/sheet/list');
+      return $http.get('/api/g/drive');
     },
     create: function(data){
-      return $http.post('/api/sheet/create', data);
+      return $http.post('/api/g/drive', data);
     }
 
   }
+
 }];
 
 angular = require('angular');

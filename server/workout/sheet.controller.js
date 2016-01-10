@@ -3,7 +3,6 @@ var Q = require('q');
 var moment = require('moment');
 var config = require('../../config');
 
-var config = require('../../config');
 var google = require('googleapis');
 
 var OAuth2 = google.auth.OAuth2;

@@ -3,8 +3,9 @@ require('./signup');
 require('./logout');
 require('./home');
 require('./add');
+require('./tracker');
 
-module.exports = angular.module('Routes',['Routes.Login', 'Routes.SignUp', 'Routes.Home', 'Routes.Add'])
+module.exports = angular.module('Routes',['Routes.Login', 'Routes.SignUp', 'Routes.Home', 'Routes.Add', 'Tracker'])
 .config(function($stateProvider, $urlRouterProvider) {
        // $httpProvider.interceptors.push('AuthInterceptor');
 
@@ -18,6 +19,13 @@ module.exports = angular.module('Routes',['Routes.Login', 'Routes.SignUp', 'Rout
             controller: 'homeCtrl',
             loginRequired: true
         })
+            .state('tracker',{
+                url: '/tracker',
+                templateUrl: 'templates/trackerList.html',
+                controller: 'trackerListCtrl',
+                controllerAs: 'trackerListVm',
+                loginRequired: true
+            })
 
         // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
         .state('add', {

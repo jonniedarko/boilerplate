@@ -1,0 +1,22 @@
+<!--
+    Display list of Google spreadsheets
+    Search for a Spread sheet by name
+    create a new spread sheet
+-->
+
+<h1>Available Documents</h1>
+    <table>
+        <tr ng-repeat="file in trackerListVm.data track by $index">
+
+            <!-- <td ng-repeat="col in row track by $index">{{col}}</td>-->
+            <td>{{file.title}}</td>
+            <td>{{file.mimeType}}</td>
+        </tr>
+    </table>
+
+    <hr>
+<div>Create New Document</div>
+    <input type="text" ng-model="newFileName">
+    <button type="button" ng-click="trackerListVm.create()">Create</button>
+
+</div>

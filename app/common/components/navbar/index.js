@@ -4,7 +4,7 @@ const NavBar = ['UserService', 'AuthService', function NavBarFn(UserService, Aut
     return {
         scope: {},
         restrict: 'EA',
-        templateUrl: './components/navbar/navbar.template.html',
+        templateUrl: './templates/navbar.template.html',
         link: function(scope) {
 
             scope.isLoggedIn = AuthService.isLoggedIn;
