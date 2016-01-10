@@ -6,7 +6,13 @@ const Rest = ['$http', function RestFn($http){
       return $http.get('/api/sheet');
     },
     saveData: function(data){
-      return $http.post('/api/data', data);
+      return $http.post('/api/sheet', data);
+    },
+    list: function(){
+      return $http.get('/api/sheet/list');
+    },
+    create: function(data){
+      return $http.post('/api/sheet/create', data);
     }
 
   }

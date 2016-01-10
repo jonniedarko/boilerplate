@@ -2,9 +2,10 @@
 	<h1>Home</h1>
 	<div>
 	  <table>
-	    <tr ng-repeat="row in data track by $index">
+	    <tr ng-repeat="file in data track by $index">
 
-	      <td ng-repeat="col in row track by $index">{{col}}</td>
+	     <!-- <td ng-repeat="col in row track by $index">{{col}}</td>-->
+			<td>{{file.title}}</td><td>{{file.mimeType}}</td>
 	    </tr>
 	  </table>
 
