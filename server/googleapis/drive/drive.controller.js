@@ -21,6 +21,15 @@ module.exports.listSpreadSheets = function listSpreadSheetsFn(token) {
 	});
 	var service = google.drive('v2');
 
+	/**
+	 * Drive v2 api
+	 * {
+	 *      auth: oauth2Client,
+	 *      maxResults: 10,
+	 *      q: query
+     * }
+	 *
+	 */
 
 	service.files.list({
 		auth: oauth2Client,
@@ -46,13 +55,25 @@ module.exports.createNewSpreadSheet = function createNewSpreadSheetFn(token, tit
 	});
 	var service = google.drive('v2');
 
+	/**
+	 * Drive v2 api
+	 * {
+	 *      auth: oauth2Client,
+	 *      resource: {
+   	 *          mimeType: "application/vnd.google-apps.spreadsheet",
+	 *		    title: title
+     *      }
+     * }
+	 *
+	 */
 
 	service.files.insert({
 		auth: oauth2Client,
-		body: {
-			title: title,
-			mimeType: 'application/vnd.google-apps.spreadsheet'
-		}
+		resource: {
+   		    mimeType: "application/vnd.google-apps.spreadsheet",
+			title: title
+        },
+
 	}, function (err, response) {
 		if (err) {
 			console.log('The API returned an error: ' + err);

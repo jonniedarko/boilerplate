@@ -7,8 +7,8 @@ const DriveApi = ['$http', function DriveApiFn($http){
     list: function(){
       return $http.get('/api/g/drive');
     },
-    create: function(data){
-      return $http.post('/api/g/drive', data);
+    create: function(title){
+      return $http.post('/api/g/drive', {title: title});
     }
 
   }

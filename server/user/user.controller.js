@@ -28,3 +28,30 @@ module.exports.signUp = function(email, password) {
 	return deferred.promise;
 };
 
+module.exports.saveDoc = function (userId, doc){
+	var deferred = Q.defer();
+
+	User.findById(userId, function (err, user) {
+		if (!user) {
+			//  req.flash('errors', { msg: 'Account with that email address already exists.' });
+			/*return res.status(409).send('That email is already Registered')*/
+			deferred.reject({message: 'User cannot be found'});
+		}
+
+		if(user.documents && user.documents.length < 10){
+			user.documents.push(doc);
+		}
+
+		user.save(function (err) {
+			if (err) {
+				//return next(err);
+				deferred.reject(err)
+			}
+			deferred.resolve(user);
+
+		});
+	});
+
+	return deferred.promise;
+
+}

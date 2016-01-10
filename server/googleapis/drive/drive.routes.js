@@ -21,7 +21,7 @@ function getSpreadSheetList(req, res, next){
 }
 
 function createSpreadSheet(req, res, next){
-
+debugger;
 	var token = _.find(req.user.tokens, {
 		kind: 'google'
 	});
